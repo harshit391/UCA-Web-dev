@@ -1,0 +1,40 @@
+The Website Basically built using only HTML CSS and JS
+
+All the Code Compilation happened at Application Layer
+
+Frontend - Presentation Layer
+Middleware - Application Layer
+Backend - Transport Layer
+
+Flow Control :-
+
+From the very first point the Front end comes into light which requests the data from backend
+It do not reveal the data just request the data
+Front end do not control the data base neither it directly talk to data base
+Nextjs can because It has both the things
+
+The Interaction between Front end and back end happend through Application Layer
+
+Front end first goes to Application Layer through API
+
+Then Application Layer send the request further to Data base
+
+So We can say Application Layer is a server ( Only as an example )
+Server :- Something which serves something to us
+Or Something which is fulfilling our request and giving something to us
+
+First Front end is client to Application Layer 
+Then Application Layer act as client from Data Base
+
+All the logical things like conversion of data into required data perform at Application Layer
+
+Why Data Base is a Server ?
+Because it serving the data to us
+
+Blocking Mode - If some instruction is executing then rest of the operations will not work ( Synchronous )
+Non Blocking Mode - Opposite of Blocking Mode ( Asynchronous )
+
+Asynchronous is the feature of browser not the java script
+javascript if single threaded not multithreaded
+
+

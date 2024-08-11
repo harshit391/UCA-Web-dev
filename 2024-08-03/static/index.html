@@ -12,8 +12,14 @@
 </head>
 
 <body>
-    <script src="script.js" async></script>
-    <script src="data.js" defer></script>
+    <!--
+    If we remove async or defer from these, This will block the rendering of the page
+    Defer Mode works similar for async its just that it will execute the script after the page is loaded
+    Async will be working in Background and will not block the rendering of the page
+    -->
+    
+    <script src="script.js" defer></script>
+    <script src="data.js" async></script>
 
     <div class="row" >
         <div>

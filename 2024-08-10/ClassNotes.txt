@@ -1,0 +1,53 @@
+Thanks to Ishika Gulati 
+
+function and data is building block of any application
+classes are basically wrappers on top of these functions
+behaviours are basically added in methods to define scope of variables
+
+
+Scopes in javascript:
+
+
+==>global  scope: window object, JSON etc 
+==>function scope
+==>block scope
+
+
+==> hoisting never makes a function global it just moves the declaration to the top level of the innermost function not innermost block (therefore variable declared with var is accessible but let is not)
+
+==> anything inside curly braces- block scope
+
+==> any variable declared irrespective of how they are declared(var/let etc) will be accessible in the innermost function and scopes but variables declares in innermost function is not accessible outside
+
+==> difference between not defined and undefined
+undefined- variable is declared but is not initialized meaning variable exists but not yet given any value
+not defined- variable is not declare that is no such variable exists
+
+-> const is block scoped
+->let is block scoped coz they are not hoisted 
+-> var is function scoped not block scoped
+-> better to use let coz var behaviour is stupid and inconsistent.. we dont know where it will get hoisted
+
+//null is also  a kind of value but undefined means no value exists
+
+==>Everything in js is an object
+// variable is also an object as after its dtype is inferred during runtime js attaches various methods and properties to it
+//object is anything that has properties
+
+in client server arch in most cases data is passed in the form of objects only
+
+data over network travel in the form of string in http protocol
+
+therefore objects are also sent in the form of strings... to achieve this we use json.stringify ..it converts any object to string to create an illusion to network that we are sending data in the form of strings
+
+json--> javascript object notation
+==> json.parse() convert this string object to object only
+
+
+//study more about local storage
+
+// in local storage object contents  are also stored  in the form of strings
+// use case of json: local storage
+
+// in case of axios when sending request to server .. it automatically stringify the object
+but using fetch and ajax we have to explicitly perform json.stringify before sending the data
