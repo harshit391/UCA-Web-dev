@@ -72,3 +72,9 @@ Inner Arrow Function :-  student {checkResultsNormal: ƒ, checkResultsArrow: ƒ
  * If its Normal Function then this will be window
  * If its Arrow Function then this will be the object itself
  */
+
+/* Self Invoking Functions */
+
+(function() {
+    console.log("Inside Self Invoking Function function with params as: ", this); // window
+})();
