@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 // import App from "./App";
 
 // If export function App is Used
-import {app as App} from "./app";
+import App from "./app";
 
 const reactProjectRoot = createRoot(document.getElementById("root"));
 

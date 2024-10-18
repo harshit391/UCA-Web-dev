@@ -40,8 +40,8 @@ function productList()
                 {
                     return  (
                         <tr key={index}>
-                                <td style={{border: "2px solid black", padding: "1rem"}}>{product.name}</td>
-                                <td style={{border: "2px solid black", padding: "1rem"}}>{product.price}</td>
+                            <td style={{border: "2px solid black", padding: "1rem"}}>{product.name}</td>
+                            <td style={{border: "2px solid black", padding: "1rem"}}>{product.price}</td>
                         </tr>
                     );
                 })}

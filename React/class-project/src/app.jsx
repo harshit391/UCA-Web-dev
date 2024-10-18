@@ -1,16 +1,19 @@
-import {header as Header} from './header';
-import ProductList from './productList';
+// This is a normal function, it becomes a component when it is exported and used in the main file.
 
-export function app()
-{
-    return (<>
-        <Header />
-        <header></header>
-        <main>
-            <ProductList />
-        </main>
-        <footer></footer>
-    </>);
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import routes from "./routes";
+
+function App() {
+
+    const router = createBrowserRouter(routes);
+
+    return (
+        <>
+            <RouterProvider router={router}></RouterProvider>
+        </>
+    )
 }
 
-// export default App;
+// we can return only one element from a component
+// if we want to do multiple elements, we can use a div tag to wrap them up or <> </> which are called as fragments
+export default App;
