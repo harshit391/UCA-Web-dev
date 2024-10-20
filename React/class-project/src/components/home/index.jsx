@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,6 +20,29 @@ function ProductList() {
     // never use open variables to store the data
 
     var [products, setProducts] = useState([]);
+
+    const [productToDelete, setProductToDelete] = useState(null);
+
+    const [count, setCount] = useState(0);
+
+    // --------------------------------------------------
+
+    let numberofReRenders = 0;
+
+    let noOfrefs = useRef(0);
+
+    useEffect(() => {
+        numberofReRenders++;
+        noOfrefs.current++;
+        console.log('Number of re-renders', numberofReRenders);
+        console.log('Number of refs', noOfrefs.current);
+
+        setTimeout(() => {
+            setCount(count + 1);
+        }, 1000);
+    });
+
+    // --------------------------------------------------
 
 
     // useEffect -> used to perform side effects in the component
@@ -54,20 +77,60 @@ function ProductList() {
 
     // New function to handle editing a product
     const handleEdit = (product) => {
+
+        fetch(`http://localhost:3000/products/${product.id}`, {
+            method: 'PUT',
+        }).then(() => {
+            setProducts(products.map((p) => {
+                if (p.id === product.id) {
+                    return product;
+                }
+                return p;
+            }));
+        });
+
         sessionStorage.setItem('editingProduct', JSON.stringify(product));
         sessionStorage.setItem('isEditing', 'true');
         navigate('/manageProduct');
     };
 
+    // New function to handle deleting a product
+    const handleDelete = (product) => {
+        
+        if (!window.confirm('Are you sure you want to delete this product?')) {
+            return;
+        }
+
+        setProductToDelete(product);
+
+        fetch(`http://localhost:3000/products/${product.id}`, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            setProducts(products.filter((p) => p.id !== product.id));
+        });
+    }
+
     return (
         <>
             <div id="cont">
+                {productToDelete && (
+                    <div className="d-flex justify-content-between">
+                        <div className="alert alert-danger">
+                            {productToDelete.name} is deleted successfully
+                        </div>
+                        <div onClick={(e) => {setProductToDelete(null)}} role='button' className="alert alert-dark cursor-pointer">
+                            Close <span>&times;</span>
+                        </div>
+                    </div>
+                )}
                 <table>
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Actions</th>
+                            <th>Edit Item</th>
+                            <th>Delete Item</th>
                         </tr>
                     </thead>
                     
@@ -78,7 +141,10 @@ function ProductList() {
                                     <td>{product.name}</td>
                                     <td>{product.price}</td>
                                     <td>
-                                        <button onClick={() => handleEdit(product)}>Edit</button>
+                                        <button className="btn btn-primary" onClick={() => handleEdit(product)}>Edit</button>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-danger" onClick={() => handleDelete(product)}>Delete</button>
                                     </td>
                                 </tr>
                             )

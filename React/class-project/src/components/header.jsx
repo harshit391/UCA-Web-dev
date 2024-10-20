@@ -1,4 +1,4 @@
- // interpolation is done using {} in react
+// interpolation is done using {} in react
 // props are passed as an object to the component
 // props are immutable
 // interpolation is used to pass the data dynamically to the component
@@ -18,7 +18,7 @@ function Header() {
 
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to={'/'}>Harsh's Dungeon</Link>
+                    <Link className="navbar-brand" to={'/'}>Singla</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>

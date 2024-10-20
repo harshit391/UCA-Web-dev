@@ -1,42 +1,11 @@
 {
   "users": [
     {
-      "name": "John Doe Modified",
-      "email": "john.doe@example.com",
-      "id": "1"
-    },
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com"
-    },
-    {
       "id": "2b76",
-      "firstName": "Harshpreet",
-      "lastName": "Singh",
-      "email": "harshpreet393.be22@chitkara.edu.in",
-      "password": "sadasd"
-    },
-    {
-      "id": "8e1e",
-      "firstName": "Harshpreet",
-      "lastName": "Singh",
-      "email": "harshpreet393.be22@chitkara.edu.in",
-      "password": "sad"
-    },
-    {
-      "id": "f1b3",
-      "firstName": "Harshpreet",
-      "lastName": "Singh",
-      "email": "harshpreet393.be22@chitkara.edu.in",
-      "password": "sda"
-    },
-    {
-      "id": "55db",
-      "firstName": "Harshpreet",
-      "lastName": "Singh",
-      "email": "harshpreet393.be22@chitkara.edu.in",
-      "password": "sd"
+      "firstName": "Harshit",
+      "lastName": "Singla",
+      "email": "harshitsingla1761@gmail.com",
+      "password": "singla"
     }
   ],
   "posts": [
@@ -69,49 +38,9 @@
   ],
   "products": [
     {
-      "name": "Product 1",
-      "price": "200",
-      "id": "1"
-    },
-    {
-      "id": "2",
-      "name": "Product 2",
-      "price": 200
-    },
-    {
-      "name": "ASjlkd",
-      "price": "100",
-      "id": "0ef9"
-    },
-    {
-      "name": "HARSH",
-      "price": "12342290",
-      "id": "34dd"
-    },
-    {
-      "id": "d4e1",
-      "name": "asdas",
-      "price": "1000000"
-    },
-    {
-      "id": "61ea",
-      "name": "HARSH",
-      "price": "123"
-    },
-    {
-      "id": "c474",
-      "name": "HARSH",
-      "price": "123"
-    },
-    {
-      "id": "65fa",
-      "name": "xdas",
-      "price": "1342"
-    },
-    {
-      "id": "58fc",
-      "name": "Sample",
-      "price": "20"
+      "id": "382c",
+      "name": "Test",
+      "price": "100"
     }
   ]
 }

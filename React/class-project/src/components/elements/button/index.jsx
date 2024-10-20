@@ -3,7 +3,7 @@ import React from 'react';
 function Button(props) {
 
     const buttonStyle = {
-        backgroundColor: 'red', 
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
         border: 'none',
         color: 'white',
         textAlign: 'center',
