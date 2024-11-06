@@ -14,11 +14,18 @@ function ManageProduct() {
 
     useEffect(() => {
         const storedIsEditing = sessionStorage.getItem('isEditing');
+
         setIsEditing(storedIsEditing === 'true');
 
         if (storedIsEditing === 'true') {
             const storedProduct = JSON.parse(sessionStorage.getItem('editingProduct'));
+
+            console.log("Product Stoed hered" , storedProduct);
+
             setProductData(storedProduct);
+
+            console.log("Product Stoed hered" , formRefs);
+
             if (storedProduct) {
                 formRefs.productName.current.value = storedProduct.name;
                 formRefs.productPrice.current.value = storedProduct.price;
@@ -31,7 +38,7 @@ function ManageProduct() {
 
     useEffect(() => {
         if (isEditing && productData) {
-            console.log(productData);
+            console.log("Product Data", productData);
             formRefs.productName.current.value = productData.name;
             formRefs.productPrice.current.value = productData.price;
         }
@@ -40,6 +47,7 @@ function ManageProduct() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = {
+            id: productData ? productData.id : Date.now().toString(),
             name: formRefs.productName.current.value,
             price: formRefs.productPrice.current.value,
         };
@@ -51,10 +59,9 @@ function ManageProduct() {
             return;
         }
 
-        const url = isEditing ? `http://localhost:3000/products/${productData.id}` : 'http://localhost:3000/products';
         const method = isEditing ? 'PUT' : 'POST';
 
-        fetch(url, {
+        fetch("http://localhost:3000/products", {
             method: method,
             body: JSON.stringify(formData),
             headers: {

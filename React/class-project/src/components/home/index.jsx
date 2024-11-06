@@ -27,21 +27,6 @@ function ProductList() {
 
     // --------------------------------------------------
 
-    let numberofReRenders = 0;
-
-    let noOfrefs = useRef(0);
-
-    useEffect(() => {
-        numberofReRenders++;
-        noOfrefs.current++;
-        console.log('Number of re-renders', numberofReRenders);
-        console.log('Number of refs', noOfrefs.current);
-
-        setTimeout(() => {
-            setCount(count + 1);
-        }, 1000);
-    });
-
     // --------------------------------------------------
 
 
@@ -50,13 +35,6 @@ function ProductList() {
     // [] -> used to run the useEffect only once when the component is rendered (dependency array) (componentDidMount)
     // if we remove the [] then the useEffect will run on every render
     // [productList] -> used to run the useEffect only when the productList is updated (componentDidUpdate)
-
-    useEffect(() => {
-        console.log('Component is rendered');
-        return () => { // cleanup function for teardown
-            console.log('Component is unmounted');
-        }
-    }, []);
 
 
     // a function can return multiple elements through, array, objects, callbacks, etc
@@ -78,8 +56,12 @@ function ProductList() {
     // New function to handle editing a product
     const handleEdit = (product) => {
 
-        fetch(`http://localhost:3000/products/${product.id}`, {
+        fetch(`http://localhost:3000/products`, {
             method: 'PUT',
+            body: JSON.stringify(product),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(() => {
             setProducts(products.map((p) => {
                 if (p.id === product.id) {
@@ -101,10 +83,16 @@ function ProductList() {
             return;
         }
 
+        console.log('Deleting product', product);
+
         setProductToDelete(product);
 
-        fetch(`http://localhost:3000/products/${product.id}`, {
-            method: 'DELETE'
+        fetch(`http://localhost:3000/products`, {
+            method: 'DELETE',
+            body: JSON.stringify(product),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
         .then(() => {
             setProducts(products.filter((p) => p.id !== product.id));
