@@ -58,7 +58,7 @@ router.post("/", (req, res) => {
     }
 
     try 
-    {
+    {       
         fs.writeFileSync("db.json", JSON.stringify(updatedDb));
         res.status(201).send({message: "Product Created Successfully", product: product});  
     } catch (error) 
@@ -66,5 +66,99 @@ router.post("/", (req, res) => {
         res.status(500).send({message : "Product Creation Failed", error: error});
     } 
 })
+
+router.put("/", (req, res) => {
+    
+    const product = req.body;
+
+    console.log("The Product Object :- ", product);
+
+    let db = fs.readFileSync("/db.json");
+
+    try 
+    {
+        db = fs.readFileSync("/db.json", {encoding: "utf-8"});
+    }
+    catch (error) 
+    {
+        return res.status(500).send({message: "Data Read Error", error: error});
+    }
+
+    const dbObject = JSON.parse(db);
+
+    const products = dbObject.products;
+
+    const productToBeUpdatedIdx = products.findIndex(p => p.id === product.id);
+
+    if (productToBeUpdatedIdx === -1)
+    {
+        return res.status(404).send({message: "Product Not Found"});
+    }
+
+    const newProducts = [...products];
+
+    newProducts[productToBeUpdatedIdx] = product;
+
+    const updatedDb = {
+        ...dbObject,
+
+        products: newProducts
+    }
+
+    try 
+    {       
+        fs.writeFileSync("db.json", JSON.stringify(updatedDb));
+        res.status(201).send({message: "Product Updated Successfully", product: product});  
+    } catch (error) 
+    {
+        res.status(500).send({message : "Product Updation Failed", error: error});
+    } 
+})
+
+router.delete("/", (req, res) => {
+        
+        const productId = req.query.id;
+    
+        console.log("The Product Id :- ", productId);
+    
+        let db = fs.readFileSync("/db.json");
+    
+        try 
+        {
+            db = fs.readFileSync("/db.json", {encoding: "utf-8"});
+        }
+        catch (error) 
+        {
+            return res.status(500).send({message: "Data Read Error", error: error});
+        }
+    
+        const dbObject = JSON.parse(db);
+    
+        const products = dbObject.products;
+    
+        const productToBeDeletedIdx = products.findIndex(p => p.id === productId);
+    
+        if (productToBeDeletedIdx === -1)
+        {
+            return res.status(404).send({message: "Product Not Found"});
+        }
+    
+        const newProducts = products.filter(p => p.id !== productId);
+    
+        const updatedDb = {
+            ...dbObject,
+    
+            products: newProducts
+        }
+    
+        try 
+        {       
+            fs.writeFileSync("db.json", JSON.stringify(updatedDb));
+            res.status(201).send({message: "Product Deleted Successfully", productId: productId});  
+        } catch (error) 
+        {
+            res.status(500).send({message : "Product Deletion Failed", error: error});
+        } 
+});
 
 export default router;
