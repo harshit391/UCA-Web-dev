@@ -1,5 +1,5 @@
-import express from express;
-import fs from fs;
+import express from "express";
+import fs from "fs";
 
 // You can also do this
 // export const router = express.Router();
@@ -10,11 +10,7 @@ import fs from fs;
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    console.log("The Default Response Object :- ", res);
-
-    console.log("The Defeault Status Code from Res Object :- ", res.statusCode);
-
-    const data = fs.readFileSync("/db.json");
+    const data = fs.readFileSync("db.json");
 
     const products = JSON.parse(data)?.products;
 
@@ -34,11 +30,11 @@ router.post("/", (req, res) => {
 
     console.log("The Product Object :- ", product);
 
-    let db = fs.readFileSync("/db.json");
+    let db = fs.readFileSync("db.json");
 
     try 
     {
-        db = fs.readFileSync("/db.json", {encoding: "utf-8"});
+        db = fs.readFileSync("db.json", {encoding: "utf-8"});
     }
     catch (error) 
     {
@@ -73,11 +69,11 @@ router.put("/", (req, res) => {
 
     console.log("The Product Object :- ", product);
 
-    let db = fs.readFileSync("/db.json");
+    let db = fs.readFileSync("db.json");
 
     try 
     {
-        db = fs.readFileSync("/db.json", {encoding: "utf-8"});
+        db = fs.readFileSync("db.json", {encoding: "utf-8"});
     }
     catch (error) 
     {
@@ -117,15 +113,15 @@ router.put("/", (req, res) => {
 
 router.delete("/", (req, res) => {
         
-        const productId = req.query.id;
+        const productId = req.body.id;
     
         console.log("The Product Id :- ", productId);
     
-        let db = fs.readFileSync("/db.json");
+        let db = fs.readFileSync("db.json");
     
         try 
         {
-            db = fs.readFileSync("/db.json", {encoding: "utf-8"});
+            db = fs.readFileSync("db.json", {encoding: "utf-8"});
         }
         catch (error) 
         {

@@ -1,14 +1,1 @@
-{
-    "products" : [
-        {
-            "id": 1,
-            "name": "Product 1",
-            "price": 100
-        },
-        {
-            "id": 2,
-            "name": "Product 2",
-            "price": 200   
-        }
-    ]
-}
+{"products":[{"id":"1730912857571","name":"Test","price":"12321"}]}
