@@ -1,9 +1,16 @@
 import express from 'express';
 import productRouter from './routes/products.routes.js';
+import dotenv from 'dotenv';
+import { connectDB } from './config/db.connection.js';
 
 const app = express();
 
+dotenv.config();
+
 app.use(express.json());
+
+// Connecting to MongoDB
+connectDB();
 
 // Setting up CORS Headers for the API to be accessed from any domain or port
 app.use("*", (req, res, next) => {
