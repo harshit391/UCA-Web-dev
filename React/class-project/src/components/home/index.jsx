@@ -46,8 +46,12 @@ function ProductList() {
     useEffect(() => {
         fetch('http://localhost:3000/products')
             .then(response => response.json())
-            .then(data => setProducts(data));
+            .then(data => setProducts(data.product));
     }, []);
+
+    useEffect(() => {
+        console.log('Products updated', products);
+    }, [products]);
 
     // 2 hooks useState and useRef are used to update the state and to refer to the DOM elements
     // useState is used to update the state of the component
@@ -64,7 +68,7 @@ function ProductList() {
             }
         }).then(() => {
             setProducts(products.map((p) => {
-                if (p.id === product.id) {
+                if (p._id === product._id) {
                     return product;
                 }
                 return p;
@@ -95,7 +99,7 @@ function ProductList() {
             }
         })
         .then(() => {
-            setProducts(products.filter((p) => p.id !== product.id));
+            setProducts(products.filter((p) => p._id !== product._id));
         });
     }
 
@@ -105,7 +109,7 @@ function ProductList() {
                 {productToDelete && (
                     <div className="d-flex justify-content-between">
                         <div className="alert alert-danger">
-                            {productToDelete.name} is deleted successfully
+                            {productToDelete.productName} is deleted successfully
                         </div>
                         <div onClick={(e) => {setProductToDelete(null)}} role='button' className="alert alert-dark cursor-pointer">
                             Close <span>&times;</span>
@@ -125,9 +129,9 @@ function ProductList() {
                     <tbody>
                         {products.map((product) => {
                             return (
-                                <tr key={product.id}>
-                                    <td>{product.name}</td>
-                                    <td>{product.price}</td>
+                                <tr key={product._id}>
+                                    <td>{product.productName}</td>
+                                    <td>{product.productPrice}</td>
                                     <td>
                                         <button className="btn btn-primary" onClick={() => handleEdit(product)}>Edit</button>
                                     </td>

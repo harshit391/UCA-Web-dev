@@ -27,8 +27,8 @@ function ManageProduct() {
             console.log("Product Stoed hered" , formRefs);
 
             if (storedProduct) {
-                formRefs.productName.current.value = storedProduct.name;
-                formRefs.productPrice.current.value = storedProduct.price;
+                formRefs.productName.current.value = storedProduct.productName;
+                formRefs.productPrice.current.value = storedProduct.productPrice;
             }
         }
     }, []);
@@ -39,22 +39,22 @@ function ManageProduct() {
     useEffect(() => {
         if (isEditing && productData) {
             console.log("Product Data", productData);
-            formRefs.productName.current.value = productData.name;
-            formRefs.productPrice.current.value = productData.price;
+            formRefs.productName.current.value = productData.productName;
+            formRefs.productPrice.current.value = productData.productPrice;
         }
     }, [isEditing, productData]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = {
-            id: productData ? productData.id : Date.now().toString(),
-            name: formRefs.productName.current.value,
-            price: formRefs.productPrice.current.value,
+            _id : productData ? productData._id : null,
+            productName: formRefs.productName.current.value,
+            productPrice: formRefs.productPrice.current.value,
         };
 
         console.log(formData);
 
-        if (formData.name === "" || formData.price === "") {
+        if (formData.productName === "" || formData.productPrice === "") {
             alert("Please fill all the fields");
             return;
         }
