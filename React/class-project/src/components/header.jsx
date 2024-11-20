@@ -5,9 +5,9 @@
 
 import { Link } from "react-router-dom";
 import Button from "./elements/button";
+import { isUserLoggedIn, logoutUser } from "../utils/helper";
 
 function Header() {
-    let title = "Product List";
         
     return (
         <header>
@@ -54,12 +54,15 @@ function Header() {
                     <Button>
                         <Link to={'/manageProduct'} className="nav-link">Add Product</Link>
                     </Button>
-                    <Button>
+                    {!isUserLoggedIn() && <Button>
                         <Link to={'/signup'} className="nav-link">SignUp</Link>
-                    </Button>
-                    <Button>
+                    </Button>}
+                    {!isUserLoggedIn() && <Button>
                         <Link to={'/signin'} className="nav-link">SignIn</Link>
-                    </Button>
+                    </Button>}
+                    {isUserLoggedIn() && <Button>
+                        <div onClick={logoutUser} className="nav-link">Logout</div>
+                    </Button>}
                     </div>
                 </div>
             </nav>

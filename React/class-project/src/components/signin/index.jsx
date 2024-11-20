@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isUserLoggedIn } from '../../utils/helper';
 
 function SignIn() {
 
@@ -38,6 +39,7 @@ function SignIn() {
         }).then((res) => {
             console.log(res);
             navigate('/', { state: { user: res } });
+            window.location.reload();
         });
     };
 
@@ -66,6 +68,8 @@ function SignIn() {
             return res.json();
         }).then((res) => {
             localStorage.setItem('token', res.user);
+            localStorage.setItem('email', formRefs.email.current.value);
+            alert('User Authenticated Successfully');
             console.log(res);
         })
     }

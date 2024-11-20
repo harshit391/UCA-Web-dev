@@ -3,6 +3,8 @@ import SignUp from "./components/signup"
 import SignIn from "./components/signin"
 import Layout from "./components/layout";
 import ManageProduct from "./components/manageProduct";
+import { isUserLoggedIn } from "./utils/helper";
+import { Navigate, redirect } from "react-router-dom";
 
 const routes = [
     {
@@ -16,11 +18,11 @@ const routes = [
             },
             {
                 path: '/signup',
-                element: <SignUp></SignUp>
+                element: !isUserLoggedIn() ? <SignUp></SignUp> : <Navigate to={'/'}></Navigate>
             },
             {
                 path: '/signin',
-                element: <SignIn></SignIn>
+                element: !isUserLoggedIn() ? <SignIn></SignIn> : <Navigate to={'/'}></Navigate>
             },
             {
                 path: '/manageProduct',

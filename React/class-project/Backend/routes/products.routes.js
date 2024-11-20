@@ -114,6 +114,8 @@ router.get("/:id", (req, res) =>
 
 router.post("/", (req, res) => {
     const product = req.body;
+
+    console.log("The Product Object :- ", product);
     
     ProductsModel.addProduct(product,
 
