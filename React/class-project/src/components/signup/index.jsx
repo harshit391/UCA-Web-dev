@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 
 function SignUp() {
-    const [isFormCreated, setIsFormCreated] = useState(false);
-    const [isFormFailed, setIsFormFailed] = useState(false);
+    const [isUserCreated, setIsUserCreated] = useState(false);
+    const [isUserFailed, setIsUserFailed] = useState(false);
     const formRefs = {
         firstName: useRef(),
         lastName: useRef(),
@@ -24,14 +24,17 @@ function SignUp() {
             return;
         }
 
-        var response = fetch('http://localhost:3000/users', {
+        const response = fetch('http://localhost:3000/user/signup', {
             method: 'POST',
             body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(response => {
             if(response.status === 201) {
-                setIsFormCreated(true);
+                setIsUserCreated(true);
             } else {
-                setIsFormFailed(true);
+                setIsUserFailed(true);
             }
         });
     };
@@ -39,13 +42,13 @@ function SignUp() {
     return (
         <> 
         {
-            isFormCreated && <div class="alert alert-success" role="alert">
-                        Form Created Successfully
-                    </div>
+            isUserCreated && <div className="alert alert-success" role="alert">
+                                User Created Successfully
+                            </div>
         }
         {
-            isFormFailed && <div class="alert alert-danger" role="alert">
-                                Form Creation Failed
+            isUserFailed && <div className="alert alert-danger" role="alert">
+                                User Creation Failed
                             </div>
         }
         

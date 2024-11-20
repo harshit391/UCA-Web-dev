@@ -1,5 +1,6 @@
 import express from 'express';
 import productRouter from './routes/products.routes.js';
+import userRoutes from './routes/users.route.js'; 
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.connection.js';
 
@@ -21,6 +22,7 @@ app.use("*", (req, res, next) => {
 })  
 
 app.use("/products", productRouter);
+app.use("/user", userRoutes);
 
 app.get('/', (req, res) => {
     res.send({ message: 'Hello World' });
