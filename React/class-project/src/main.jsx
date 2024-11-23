@@ -8,4 +8,4 @@ import App from "./app";
 
 const reactProjectRoot = createRoot(document.getElementById("root"));
 
-reactProjectRoot.render(<App />)
+reactProjectRoot.render(<App />);

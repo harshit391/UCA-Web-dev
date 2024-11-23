@@ -29,79 +29,76 @@ function ProductList() {
 
     // --------------------------------------------------
 
-
     // useEffect -> used to perform side effects in the component
     // side effects are the actions that are performed in the component
     // [] -> used to run the useEffect only once when the component is rendered (dependency array) (componentDidMount)
     // if we remove the [] then the useEffect will run on every render
     // [productList] -> used to run the useEffect only when the productList is updated (componentDidUpdate)
 
-
     // a function can return multiple elements through, array, objects, callbacks, etc
-    
+
     // setTimeout(() => {
     //     setProducts([{name: 'Product 1', price: 400}, {name: 'Product 2', price: 500}, {name: 'Product 3', price: 600}]);
     // }, 1000);
 
     useEffect(() => {
-        fetch('http://localhost:3000/products')
-            .then(response => response.json())
-            .then(data => setProducts(data.product));
+        fetch("http://localhost:3000/products")
+            .then((response) => response.json())
+            .then((data) => setProducts(data.product));
     }, []);
 
     useEffect(() => {
-        console.log('Products updated', products);
+        console.log("Products updated", products);
     }, [products]);
 
     // 2 hooks useState and useRef are used to update the state and to refer to the DOM elements
     // useState is used to update the state of the component
-    // useRef is used to refer to the DOM elements 
+    // useRef is used to refer to the DOM elements
 
     // New function to handle editing a product
     const handleEdit = (product) => {
-
         fetch(`http://localhost:3000/products`, {
-            method: 'PUT',
+            method: "PUT",
             body: JSON.stringify(product),
             headers: {
-                'Content-Type': 'application/json'
-            }
+                "Content-Type": "application/json",
+            },
         }).then(() => {
-            setProducts(products.map((p) => {
-                if (p._id === product._id) {
-                    return product;
-                }
-                return p;
-            }));
+            setProducts(
+                products.map((p) => {
+                    if (p._id === product._id) {
+                        return product;
+                    }
+                    return p;
+                })
+            );
         });
 
-        sessionStorage.setItem('editingProduct', JSON.stringify(product));
-        sessionStorage.setItem('isEditing', 'true');
-        navigate('/manageProduct');
+        sessionStorage.setItem("editingProduct", JSON.stringify(product));
+        sessionStorage.setItem("isEditing", "true");
+        navigate("/manageProduct");
     };
 
     // New function to handle deleting a product
     const handleDelete = (product) => {
-        
-        if (!window.confirm('Are you sure you want to delete this product?')) {
+        if (!window.confirm("Are you sure you want to delete this product?")) {
             return;
         }
 
-        console.log('Deleting product', product);
+        console.log("Deleting product", product);
 
         setProductToDelete(product);
 
         fetch(`http://localhost:3000/products`, {
-            method: 'DELETE',
+            method: "DELETE",
             body: JSON.stringify(product),
             headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(() => {
+                "Content-Type": "application/json",
+            },
+        }).then(() => {
             setProducts(products.filter((p) => p._id !== product._id));
         });
-    }
+    };
 
     return (
         <>
@@ -109,9 +106,16 @@ function ProductList() {
                 {productToDelete && (
                     <div className="d-flex justify-content-between">
                         <div className="alert alert-danger">
-                            {productToDelete.productName} is deleted successfully
+                            {productToDelete.productName} is deleted
+                            successfully
                         </div>
-                        <div onClick={(e) => {setProductToDelete(null)}} role='button' className="alert alert-dark cursor-pointer">
+                        <div
+                            onClick={(e) => {
+                                setProductToDelete(null);
+                            }}
+                            role="button"
+                            className="alert alert-dark cursor-pointer"
+                        >
                             Close <span>&times;</span>
                         </div>
                     </div>
@@ -125,7 +129,7 @@ function ProductList() {
                             <th>Delete Item</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         {products.map((product) => {
                             return (
@@ -133,27 +137,41 @@ function ProductList() {
                                     <td>{product.productName}</td>
                                     <td>{product.productPrice}</td>
                                     <td>
-                                        <button className="btn btn-primary" onClick={() => handleEdit(product)}>Edit</button>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => handleEdit(product)}
+                                        >
+                                            Edit
+                                        </button>
                                     </td>
                                     <td>
-                                        <button className="btn btn-danger" onClick={() => handleDelete(product)}>Delete</button>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() =>
+                                                handleDelete(product)
+                                            }
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
-                            )
+                            );
                         })}
                     </tbody>
                 </table>
             </div>
             <Link to="/manageProduct">
-                <Button onClick={() => {
-                    sessionStorage.removeItem('editingProduct');
-                    sessionStorage.setItem('isEditing', 'false');
-                }}>
+                <Button
+                    onClick={() => {
+                        sessionStorage.removeItem("editingProduct");
+                        sessionStorage.setItem("isEditing", "false");
+                    }}
+                >
                     Add New Product
                 </Button>
             </Link>
         </>
-    )
+    );
 }
 
 export default ProductList;

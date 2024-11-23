@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ManageProduct() {
     const [isEditing, setIsEditing] = useState(false);
@@ -13,22 +13,25 @@ function ManageProduct() {
     };
 
     useEffect(() => {
-        const storedIsEditing = sessionStorage.getItem('isEditing');
+        const storedIsEditing = sessionStorage.getItem("isEditing");
 
-        setIsEditing(storedIsEditing === 'true');
+        setIsEditing(storedIsEditing === "true");
 
-        if (storedIsEditing === 'true') {
-            const storedProduct = JSON.parse(sessionStorage.getItem('editingProduct'));
+        if (storedIsEditing === "true") {
+            const storedProduct = JSON.parse(
+                sessionStorage.getItem("editingProduct")
+            );
 
-            console.log("Product Stoed hered" , storedProduct);
+            console.log("Product Stoed hered", storedProduct);
 
             setProductData(storedProduct);
 
-            console.log("Product Stoed hered" , formRefs);
+            console.log("Product Stoed hered", formRefs);
 
             if (storedProduct) {
                 formRefs.productName.current.value = storedProduct.productName;
-                formRefs.productPrice.current.value = storedProduct.productPrice;
+                formRefs.productPrice.current.value =
+                    storedProduct.productPrice;
             }
         }
     }, []);
@@ -47,7 +50,7 @@ function ManageProduct() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = {
-            _id : productData ? productData._id : null,
+            _id: productData ? productData._id : null,
             productName: formRefs.productName.current.value,
             productPrice: formRefs.productPrice.current.value,
         };
@@ -59,20 +62,20 @@ function ManageProduct() {
             return;
         }
 
-        const method = isEditing ? 'PUT' : 'POST';
+        const method = isEditing ? "PUT" : "POST";
 
         fetch("http://localhost:3000/products", {
             method: method,
             body: JSON.stringify(formData),
             headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
+                "Content-Type": "application/json",
+            },
+        }).then((response) => {
             if (response.status === 201 || response.status === 200) {
                 setIsFormCreated(true);
-                sessionStorage.removeItem('editingProduct');
-                sessionStorage.removeItem('isEditing');
-                setTimeout(() => navigate('/'), 1500);
+                sessionStorage.removeItem("editingProduct");
+                sessionStorage.removeItem("isEditing");
+                setTimeout(() => navigate("/"), 1500);
             } else {
                 setIsFormFailed(true);
             }
@@ -81,36 +84,56 @@ function ManageProduct() {
 
     return (
         <>
-            {
-                isFormCreated && <div className="alert alert-success" role="alert">
-                    Product {isEditing ? 'Updated' : 'Added'} Successfully
+            {isFormCreated && (
+                <div className="alert alert-success" role="alert">
+                    Product {isEditing ? "Updated" : "Added"} Successfully
                 </div>
-            }
-            {
-                isFormFailed && <div className="alert alert-danger" role="alert">
-                    Product {isEditing ? 'Update' : 'Addition'} Failed
+            )}
+            {isFormFailed && (
+                <div className="alert alert-danger" role="alert">
+                    Product {isEditing ? "Update" : "Addition"} Failed
                 </div>
-            }
+            )}
 
             <div className="container mt-5">
-                <h2>{isEditing ? 'Edit Product' : 'Add New Product'}</h2>
+                <h2>{isEditing ? "Edit Product" : "Add New Product"}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3 row">
-                        <label htmlFor="inputProductName" className="col-sm-2 col-form-label">Product Name</label>
+                        <label
+                            htmlFor="inputProductName"
+                            className="col-sm-2 col-form-label"
+                        >
+                            Product Name
+                        </label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="inputProductName" ref={formRefs.productName} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="inputProductName"
+                                ref={formRefs.productName}
+                            />
                         </div>
                     </div>
                     <div className="mb-3 row">
-                        <label htmlFor="inputProductPrice" className="col-sm-2 col-form-label">Product Price</label>
+                        <label
+                            htmlFor="inputProductPrice"
+                            className="col-sm-2 col-form-label"
+                        >
+                            Product Price
+                        </label>
                         <div className="col-sm-10">
-                            <input type="number" className="form-control" id="inputProductPrice" ref={formRefs.productPrice} />
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="inputProductPrice"
+                                ref={formRefs.productPrice}
+                            />
                         </div>
                     </div>
                     <div className="mb-3 row">
                         <div className="col-sm-10 offset-sm-2">
                             <button type="submit" className="btn btn-primary">
-                                {isEditing ? 'Update Product' : 'Add Product'}
+                                {isEditing ? "Update Product" : "Add Product"}
                             </button>
                         </div>
                     </div>

@@ -3,12 +3,12 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
     const outletStyle = {
-        padding: '20px',
-        backgroundColor: '#f0f0f0',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        margin: '20px auto',
-        maxWidth: '1200px',
+        padding: "20px",
+        backgroundColor: "#f0f0f0",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        margin: "20px auto",
+        maxWidth: "1200px",
     };
 
     return (
@@ -23,7 +23,7 @@ function Layout() {
             </main>
             <footer></footer>
         </>
-    )
+    );
 }
 
 export default Layout;
