@@ -3,9 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../elements/button";
+import { setProductsList } from "../../redux/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductList() {
     const navigate = useNavigate();
+
+    const dispath = useDispatch();
 
     // const navigateToEdit = () => {
     //     console.log('Navigating to edit');
@@ -19,11 +23,11 @@ function ProductList() {
     // we need to use the state to update the products
     // never use open variables to store the data
 
-    var [products, setProducts] = useState([]);
+    const products = useSelector((state) => {
+        return state.products.productsList;
+    });
 
     const [productToDelete, setProductToDelete] = useState(null);
-
-    const [count, setCount] = useState(0);
 
     // --------------------------------------------------
 
@@ -44,7 +48,7 @@ function ProductList() {
     useEffect(() => {
         fetch("http://localhost:3000/products")
             .then((response) => response.json())
-            .then((data) => setProducts(data.product));
+            .then((data) => dispath(setProductsList(data.product)));
     }, []);
 
     useEffect(() => {
@@ -64,13 +68,15 @@ function ProductList() {
                 "Content-Type": "application/json",
             },
         }).then(() => {
-            setProducts(
-                products.map((p) => {
-                    if (p._id === product._id) {
-                        return product;
-                    }
-                    return p;
-                })
+            dispath(
+                setProductsList(
+                    products.map((p) => {
+                        if (p._id === product._id) {
+                            return product;
+                        }
+                        return p;
+                    })
+                )
             );
         });
 
@@ -94,9 +100,12 @@ function ProductList() {
             body: JSON.stringify(product),
             headers: {
                 "Content-Type": "application/json",
+                x,
             },
         }).then(() => {
-            setProducts(products.filter((p) => p._id !== product._id));
+            dispath(
+                setProductsList(products.filter((p) => p._id !== product._id))
+            );
         });
     };
 

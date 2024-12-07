@@ -22,7 +22,7 @@ app.use("*", (req, res, next) => {
 })  
 
 app.use("/products", productRouter);
-app.use("/user", userRoutes);
+app.use("/user", userRoutes);   
 
 app.get('/', (req, res) => {
     res.send({ message: 'Hello World' });
